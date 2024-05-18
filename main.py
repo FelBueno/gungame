@@ -1,6 +1,7 @@
 import pygame
 from scripts.consts import *
 from scripts.player import P
+from scripts.mira import mira, M
 
 pygame.init()
 
@@ -15,7 +16,9 @@ class Game():
           self.pause:bool = False
 
           self.color:color = BLUE
+          
 
+          pygame.mouse.set_visible(False)
 
      def main(self):
 
@@ -38,8 +41,12 @@ class Game():
                               #pausa o jogo
                               self.pause:bool = not self.pause
 
+                    P.get_event(event, M)
+
                #game code
                self.ingame()
+               mira.draw(self.screen)
+               mira.update()
 
                pygame.display.update()
                self.clock.tick(60)
@@ -47,7 +54,7 @@ class Game():
      def ingame(self) -> None:
 
           P.draw(self.screen)
-          P.update()
+          P.update(self, mira)
 
 G:Game = Game()
 

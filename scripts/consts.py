@@ -42,6 +42,9 @@ type color = tuple
 type image = any
 type player = object
 type game = object
+type joystick = any
+type group = any
+type cursor = object
 
 #Fontes
 fontSmall:fonttype = pygame.font.Font("joystix monospace.otf", scale(18))
@@ -58,6 +61,8 @@ YELLOW:color = (255,255,0)
 PURPLE:color = (255,0,255)
 CYAN:color = (0,255,255)
 DARKBLUE:color = (10, 10, 120)
+
+#grupo de sprites
 
 
 

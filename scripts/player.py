@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
                self.image:image = pygame.transform.scale(self.image,(6*REDOBJ,6*REDOBJ))
                self.sprite.append(self.image)
 
+
           #rect
           self.image:image = self.sprite[0]
           self.spr:image  = self.sprite[0]
@@ -26,12 +27,18 @@ class Player(pygame.sprite.Sprite):
 
           #var
           self.speed:float = REDOBJ
+          #*animate vars
+          self.moving:bool = False
+          self.index:int = 0
+          self.lastpressed:str = 'd'
 
-     def update(self) -> None:
+     def update(self, G:game, mira:cursor) -> None:
           '''update player
           :return None'''
-          self.move()
-          self.animate()
+
+
+          self.move(G)
+
 
      def draw(self, surface:screen) -> None:
           '''draw player
@@ -40,21 +47,10 @@ class Player(pygame.sprite.Sprite):
 
           surface.blit(self.image, self.rect)
 
-     def move(self) -> None:
+     def move(self, G:game) -> None:
           '''move player
           :return None'''
-          keys = pygame.key.get_pressed()
 
-          #move horizontal
-          if keys[K_a]:
-               self.rect.x -= self.speed 
-          elif keys[K_d]:
-               self.rect.x += self.speed 
-          #move na vertical
-          if keys[K_w]:
-               self.rect.y -= self.speed 
-          elif keys[K_s]:
-               self.rect.y += self.speed 
 
 
           #não permite sair pra fora da tela
@@ -67,13 +63,12 @@ class Player(pygame.sprite.Sprite):
           if self.rect.top > H:
                self.rect.top = 0
 
+     def get_event(self, events:event, mira:cursor):
 
-
-     def animate(self) -> None:
-          '''animate player
-          :return None'''
-          pass
-
+          #compatibilidade com controle
+          if events.type == MOUSEBUTTONDOWN:
+               mira.waitindex = 10
+               mira.index = 1
 
 
 
