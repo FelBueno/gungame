@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from scripts.consts import *
+from scripts.particles import Particle
 from random import randint
 import math
 
@@ -12,7 +13,7 @@ class ProjPlayer(pygame.sprite.Sprite):
 
         # Carregando sprite
         self.image = pygame.image.load("sprites/Projectile.png")
-        self.image = pygame.transform.scale(self.image, (2 * REDOBJ, 2 * REDOBJ))
+        self.image = pygame.transform.scale(self.image, (4 * REDOBJ, 4 * REDOBJ))
 
         # Posicionando o sprite
         self.rect = self.image.get_rect()
@@ -25,6 +26,10 @@ class ProjPlayer(pygame.sprite.Sprite):
         self.angle:float = angle
 
         self.time:int = lifetime
+        self.tipo:str = tipo
+        "explosivo", "venenoso", "multi"
+        if self.dmg <= 0:
+            self.dmg = randint(1,4)
 
     def update(self) -> None:
         '''Atualização do projétil'''
@@ -43,6 +48,14 @@ class ProjPlayer(pygame.sprite.Sprite):
             self.rect.bottom = H - scalecordY(2)
         elif self.rect.top > H:
             self.rect.top = 0
+
+        if self.tipo == "explosivo":
+            caminho:Particle = Particle(self.rect.centerx, self.rect.centery, YELLOW, (REDOBJ,REDOBJ), 60)
+            ParticlesGroup.add(caminho)
+        elif self.tipo == "venenoso":
+            caminho:Particle = Particle(self.rect.centerx, self.rect.centery, GREEN, (REDOBJ,REDOBJ), 60)
+            ParticlesGroup.add(caminho)
+        
 
 
 

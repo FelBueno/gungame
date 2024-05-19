@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from scripts.consts import *
 from scripts.player import P
+from scripts.ProjPlayer import ProjPlayer
 from scripts.particles import Particle
 from random import randint
 
@@ -65,14 +66,46 @@ class Attacker(pygame.sprite.Sprite):
           self.waitattack:int = 50
           self.canwalk:bool = True
           self.index:int = 0
+          self.txtLifeTime:int = 0
+          self.txty:int = self.rect.top
+          self.txtopacity:int = 255
+          self.dmgtacken:int = 0
 
+          self.waitven = 0
+          self.ven = 0
 
-
-     def update(self) -> None:
+     def update(self, display:screen) -> None:
           self.walk()  
           
           self.waitattack -= 1
+          self.waitven -= 1
+          self.txtLifeTime -= 1
 
+          if self.txtLifeTime >= 0:
+               txt = fontSmall.render(f"{self.dmgtacken}", False, self.txtcollor)
+               txt.set_alpha(self.txtopacity)       
+               txt_rect = txt.get_rect()
+               xpos = (self.rect.centerx - txt_rect.width)
+               display.blit(txt, (xpos, self.txty))
+               self.txtLifeTime -= 1
+               self.txtupdate()
+          
+
+
+          if self.waitven <= 0:
+               if self.ven > 0:
+                    self.hp -= 1
+                    
+                    self.txtLifeTime:int = 210
+                    self.txtopacity:int = 255
+                    self.txtcollor:tuple = RED
+                    self.txty:int = self.rect.top
+
+                    self.ven -= 1
+                    self.waitven:int = randint(30,90)
+          else:
+               dmg:Particle = Particle(self.rect.centerx, self.rect.centery, GREEN, (3,3), 120)
+               ParticlesGroup.add(dmg)
           if self.hp <= 0:
                self.kill()
 
@@ -87,7 +120,36 @@ class Attacker(pygame.sprite.Sprite):
                     dmg:Particle = Particle(self.rect.centerx, self.rect.centery, RED)
                     ParticlesGroup.add(dmg)
                for bl in col:
+                    if bl.tipo == "explosivo":
+                         for i in range(10):
+                              dmg:Particle = Particle(self.rect.centerx, self.rect.centery, YELLOW, (3,3), 120)
+                              ParticlesGroup.add(dmg)
+                    elif bl.tipo == "venenoso":
+                         for i in range(10): 
+                              dmg:Particle = Particle(self.rect.centerx, self.rect.centery, GREEN, (3,3), 120)
+                              ParticlesGroup.add(dmg)
+
+                         self.ven: int = randint(1,3)
+                         self.waitven:int = randint(30,90)
+                    elif  bl.tipo == "multi":
+                         gx = randint(0,1)
+                         if gx == 0:
+                              gx = -1
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle, gx, 1)
+                         ProjPGroup.add(pjp)
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle + 15, gx, 1)
+                         ProjPGroup.add(pjp)
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle - 15, gx, 1)
+                         ProjPGroup.add(pjp)
+
+                    
+                    self.txtLifeTime:int = 210
+                    self.txtopacity:int = 255
+                    self.txtcollor:tuple = RED
+                    self.txty:int = self.rect.top
+
                     self.hp -= bl.dmg
+                    self.dmgtacken = bl.dmg
 
      def walk(self) -> None:
           if self.rect.centerx < P.rect.centerx:
@@ -101,8 +163,10 @@ class Attacker(pygame.sprite.Sprite):
           elif self.rect.centery > P.rect.centery:
                self.rect.centery -= self.speed
 
-
-
+     def txtupdate(self):
+          if self.txtLifeTime % 5:
+               self.txty -= 1
+               self.txtopacity -= 2
 
 
 

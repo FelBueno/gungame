@@ -60,7 +60,7 @@ class LifeBar(pygame.sprite.Sprite):
                if self.time % 3 == 0:
                     color = RED
                     tamanho = (randint(3,8),randint(3,8))
-                    hp:Particle = Particle(self.rect.centerx, self.rect.centery, color, tamanho, 30)
+                    hp:Particle = Particle(self.rect.centerx, self.rect.centery, color, tamanho, 30, fade = False)
                     ParticlesGroup.add(hp)
 
                self.shake()

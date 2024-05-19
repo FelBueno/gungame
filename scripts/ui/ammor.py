@@ -64,7 +64,7 @@ class AmmorBar(pygame.sprite.Sprite):
                if self.time % 3 == 0:
                     color = YELLOW
                     tamanho = (randint(3,8),randint(3,8))
-                    ammor = Particle(self.rect.centerx, self.rect.centery, color, tamanho, 30)
+                    ammor = Particle(self.rect.centerx, self.rect.centery, color, tamanho, 30, fade = False)
                     ParticlesGroup.add(ammor)
 
                self.shake()

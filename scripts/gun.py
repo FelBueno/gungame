@@ -33,6 +33,8 @@ class Guns(pygame.sprite.Sprite):
           self.countdown:int = 0
           self.angle:int = 0
 
+
+
      def update(self, display: pygame.display) -> None:
 
           mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -147,7 +149,7 @@ class Guns(pygame.sprite.Sprite):
                          case 1:
                               lifetime = randint(40,90)
                               dmg = 0
-                              tipo = choice(["normal", "explosivo", "venenoso", "multi"])
+                              tipo = choice(["normal", "explosivo", "venenoso", "multi", "more"])
                          case 2:
                               lifetime = 40
                               dmg = 1
@@ -176,11 +178,9 @@ class Guns(pygame.sprite.Sprite):
                          case 1:
                               lifetime = 30
                               dmg = 1
-                              tipo = "multi"
                          case 2:
                               lifetime = 25
                               dmg = 2
-                              tipo = "multi"
                          case 3:
                               lifetime = 40
                               dmg = 3
@@ -208,22 +208,104 @@ class Guns(pygame.sprite.Sprite):
                               tipo = choice(["explosivo", "multi"])
 
 
+          match P.guntype:
+               case "pistols":
+                    if P.gunid != 1:
+                         if self.gox == -1:
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                         elif self.gox == 1:
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
 
+                         ProjPGroup.add(pjp)
+                    else:
+                         if tipo == "more":
+                              tipo = "normal"
+                              r = randint(0,5)
+                              if r == 0:
+                                   if self.gox == -1:
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                   elif self.gox == 1:
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                              else:
+                                   if self.gox == -1:
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                   elif self.gox == 1:
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        ProjPGroup.add(pjp)
+                         else: 
+                              if self.gox == -1:
+                                   pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              elif self.gox == 1:
+                                   pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
 
-
+                              ProjPGroup.add(pjp)          
                case "shotguns":
-                    lifetime = 60
-                    dmg = 1
-
-          if self.gox == -1:
-               pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
-          elif self.gox == 1:
-               pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
-
-          ProjPGroup.add(pjp)
-
-
-
+                    r:int = randint(0,9)
+                    if r == 0:
+                         if self.gox == -1:
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                         elif self.gox == 1:
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                    else:
+                         if self.gox == -1:
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                         elif self.gox == 1:
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              ProjPGroup.add(pjp)
 
 
 

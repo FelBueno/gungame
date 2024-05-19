@@ -85,7 +85,7 @@ class Game():
           ProjPGroup.update()
 
           EnemysGroup.draw(self.screen)
-          EnemysGroup.update()
+          EnemysGroup.update(self.screen)
 
           UiGroup.draw(self.screen)
           UiGroup.update(self.screen)
@@ -116,6 +116,9 @@ class Game():
 
           UiGroup.draw(self.screen)
           UiGroup.update(self.screen) 
+
+
+
 
 G:Game = Game()
 
