@@ -1,6 +1,7 @@
 from typing import Any
 import pygame
 from scripts.consts import *
+from random import randint, choice
 import math
 
 
@@ -30,16 +31,21 @@ class Player(pygame.sprite.Sprite):
           self.gunid:int = 0
           self.guntype:str = "pistols"
           self.countdown:int = 0
+
           self.ammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
+               }
+          self.canload:dict = {
+               "pistols": [2 for i in range(len(self.ammor["pistols"]))],
+               "shotguns": [2 for i in range(len(self.ammor["shotguns"]))]
                }
           self.maxammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
                }
           
-          self.Hp:int = 10
+          self.Hp:int = 20
 
 
 
@@ -47,6 +53,9 @@ class Player(pygame.sprite.Sprite):
           '''update player
           :return None'''
           self.countdown -= 1
+          
+                              
+
 
 
           # não permite sair pra fora da tela
@@ -64,6 +73,50 @@ class Player(pygame.sprite.Sprite):
 
           if pygame.sprite.spritecollide(self, EnemysGroup, True):
                self.Hp -= 1
+
+          pw = pygame.sprite.spritecollide(self, PowerupsGroup, True)
+          if pw:
+               for p in pw:
+                    match p.index:
+                         case 0: #hp
+                              if self.Hp + 3 <= 20:
+                                   self.Hp += 3
+                              else:
+                                   self.Hp = 20
+                         case 1: #+munição
+                              self.canload[self.guntype][self.gunid] += 1 
+                              self.ammor[self.guntype][self.gunid] = self.maxammor[self.guntype][self.gunid]
+                         case 2: #muda arma
+                              self.guntype = choice(["pistols","shotguns"])
+                              self.gunid = randint(0, len(self.ammor[self.guntype])-1)
+                         case 3: #mata algus inimigos
+                              for en in EnemysGroup:
+                                   
+                                   en.kill()
+                                   if randint(0, 4) == 0:
+                                        break
+                        
+                         case 4: #random
+                              r = randint(0,3)
+                              if r == 0:
+                                   if self.Hp + 3 <= 20:
+                                        self.Hp += 3
+                                   else:
+                                        self.Hp = 20
+
+                              elif r ==1: #+munição
+                                   self.canload[self.guntype][self.gunid] += 1 
+                                   self.ammor[self.guntype][self.gunid] = self.maxammor[self.guntype][self.gunid]
+                              elif r ==2: #muda arma
+                                   self.guntype = choice(["pistols","shotguns"])
+                                   self.gunid = randint(0, len(self.ammor[self.guntype])-1)
+                              elif r ==3: #mata algus inimigos
+                                   for en in EnemysGroup:
+
+                                        en.kill()
+                                        if randint(0, 4) == 0:
+                                             break
+
 
      def draw(self, surface: screen) -> None:
           '''draw player
@@ -104,8 +157,10 @@ class Player(pygame.sprite.Sprite):
           elif events.type == KEYDOWN:
                if events.key == K_r:
                     if self.countdown <= 0:
-                         self.setcountdown()
-                         self.ammor[self.guntype][self.gunid] = self.maxammor[self.guntype][self.gunid]
+                         if self.canload[self.guntype][self.gunid] > 0:
+                              self.canload[self.guntype][self.gunid] -= 1
+                              self.setcountdown()
+                              self.ammor[self.guntype][self.gunid] = self.maxammor[self.guntype][self.gunid]
                elif events.key == K_m:
                     if self.gunid == len(self.ammor[self.guntype]) -1:
                          self.gunid:int = 0
@@ -125,7 +180,7 @@ class Player(pygame.sprite.Sprite):
           if self.guntype == "pistols":
                match self.gunid:
                     case 0:
-                         spd:float = REDOBJ / 2
+                         spd:float = REDOBJ
                     case 1:
                          spd:float = REDOBJ * 5
                     case 2:
@@ -201,6 +256,8 @@ class Player(pygame.sprite.Sprite):
                          ctd:int = 45
                     case 7: #poisongun
                          ctd:int = 35
+                    case 8: #poison
+                         ctd:int = 35
                     case _:
                          raise NotImplementedError(IndexError)
           elif self.guntype == "shotguns":
@@ -223,6 +280,8 @@ class Player(pygame.sprite.Sprite):
                          ctd:int = 45
                     case 8: #cano único dourado 
                          ctd:int = 45
+                    case 9:
+                         ctd:int = 40
                     case _:
                          raise NotImplementedError(IndexError)
 
@@ -231,18 +290,24 @@ class Player(pygame.sprite.Sprite):
 
      def restart(self) -> None:
           # var
+          # var
           self.new_x, self.new_y = self.rect.center
           self.speedx, self.speedy = REDOBJ, REDOBJ
           self.gunid:int = 0
           self.guntype:str = "pistols"
           self.countdown:int = 0
+
           self.ammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
+               }
+          self.canload:dict = {
+               "pistols": [2 for i in range(len(self.ammor["pistols"]))],
+               "shotguns": [2 for i in range(len(self.ammor["shotguns"]))]
                }
           self.maxammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
                }
           
           self.Hp:int = 20

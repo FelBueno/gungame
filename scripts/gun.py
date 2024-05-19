@@ -212,99 +212,99 @@ class Guns(pygame.sprite.Sprite):
                case "pistols":
                     if P.gunid != 1:
                          if self.gox == -1:
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                          elif self.gox == 1:
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
 
                          ProjPGroup.add(pjp)
                     else:
                          if tipo == "more":
                               tipo = "normal"
-                              r = randint(0,5)
+                              r = randint(0,6)
                               if r == 0:
                                    if self.gox == -1:
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
                                    elif self.gox == 1:
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
                               else:
                                    if self.gox == -1:
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
                                    elif self.gox == 1:
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
-                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                                        pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                                         ProjPGroup.add(pjp)
                          else: 
                               if self.gox == -1:
-                                   pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                   pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                               elif self.gox == 1:
-                                   pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                                   pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
 
                               ProjPGroup.add(pjp)          
                case "shotguns":
                     r:int = randint(0,9)
                     if r == 0:
                          if self.gox == -1:
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
                          elif self.gox == 1:
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 30, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 30, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
                     else:
                          if self.gox == -1:
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
                          elif self.gox == 1:
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle - 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo)
+                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
 
 

@@ -5,6 +5,7 @@ from scripts.mira import mira, M
 from scripts.enemys.attacker import Attacker
 from scripts.ui.life import HpBar
 from scripts.ui.ammor import ammorBar 
+from scripts.powerups.boxes import Box
 from scripts.gun import Gun
 from random import randint
 
@@ -26,6 +27,7 @@ class Game():
 
           self.color:color = BLUE
           self.waitenemy:int = randint(30, 120)
+          self.waitBox:int = randint(30,180)
 
           pygame.mouse.set_visible(False)
 
@@ -69,12 +71,19 @@ class Game():
                self.clock.tick(60)
 
      def ingame(self) -> None:
+          self.waitBox -= 1
           self.waitenemy -= 1
 
           if self.waitenemy <= 0:
                self.waitenemy:int = randint(60, 300)
 
                EnemysGroup.add(Attacker())
+          if self.waitBox < 0:
+               self.waitBox:int = randint(30,180)
+               r = randint(0,2)
+               if r > 0:
+                    for i in range(r):
+                         PowerupsGroup.add(Box())
 
           P.draw(self.screen)
           P.update()
@@ -84,6 +93,9 @@ class Game():
           ProjPGroup.draw(self.screen)
           ProjPGroup.update()
 
+          PowerupsGroup.draw(self.screen)
+          PowerupsGroup.update(self.screen)
+
           EnemysGroup.draw(self.screen)
           EnemysGroup.update(self.screen)
 
@@ -92,6 +104,7 @@ class Game():
 
           ParticlesGroup.draw(self.screen)
           ParticlesGroup.update()
+
 
      def GameOver(self) -> None:
           '''game over
@@ -116,6 +129,15 @@ class Game():
 
           UiGroup.draw(self.screen)
           UiGroup.update(self.screen) 
+
+          for i in ProjPGroup:
+               i.kill()
+          for i in ParticlesGroup:
+               i.kill()
+          for i in EnemysGroup:
+               i.kill()
+          for i in PowerupsGroup:
+               i.kill()
 
 
 

@@ -49,7 +49,9 @@ class AmmorBar(pygame.sprite.Sprite):
           
                display.blit(Txt, (self.rect.centerx, self.rect.bottom))
           
+          txt = font.render(f"(x{P.canload[P.guntype][P.gunid]})", True, (255, 255, 255))
           display.blit(self.image, self.rect)
+          display.blit(txt, (scalecordX(160), scalecordY(20)))
 
           if P.ammor[P.guntype][P.gunid] > self.porcent75:
                self.image = self.sprite[0]

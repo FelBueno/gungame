@@ -5,6 +5,7 @@ from scripts.consts import *
 from scripts.player import P
 from scripts.ProjPlayer import ProjPlayer
 from scripts.particles import Particle
+from scripts.powerups.boxes import Box
 from random import randint
 
 pygame.init()
@@ -107,6 +108,10 @@ class Attacker(pygame.sprite.Sprite):
                dmg:Particle = Particle(self.rect.centerx, self.rect.centery, GREEN, (3,3), 120)
                ParticlesGroup.add(dmg)
           if self.hp <= 0:
+               if randint(0,4) == 0:
+                    Bx = Box()
+                    Bx.rect.center = self.rect.center
+                    PowerupsGroup.add(Bx)
                self.kill()
 
           if self.dir == -1:
@@ -135,11 +140,11 @@ class Attacker(pygame.sprite.Sprite):
                          gx = randint(0,1)
                          if gx == 0:
                               gx = -1
-                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle, gx, 1)
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle, gx, 1, P=P)
                          ProjPGroup.add(pjp)
-                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle + 15, gx, 1)
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle + 15, gx, 1, P=P)
                          ProjPGroup.add(pjp)
-                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle - 15, gx, 1)
+                         pjp = ProjPlayer(self.rect.left - REDOBJ, self.rect.centery, bl.angle - 15, gx, 1, P=P)
                          ProjPGroup.add(pjp)
 
                     
