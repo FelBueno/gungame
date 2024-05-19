@@ -45,6 +45,7 @@ type game = object
 type joystick = any
 type group = any
 type cursor = object
+type colision = any
 
 #Fontes
 fontSmall:fonttype = pygame.font.Font("joystix monospace.otf", scale(18))
@@ -66,4 +67,4 @@ DARKBLUE:color = (10, 10, 120)
 ProjPGroup:group = pygame.sprite.Group()
 ParticlesGroup:group = pygame.sprite.Group()
 UiGroup:group = pygame.sprite.Group()
-
+EnemysGroup:group = pygame.sprite.Group()

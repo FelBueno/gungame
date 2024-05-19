@@ -3,6 +3,7 @@ import pygame
 from scripts.consts import *
 from scripts.player import P
 from scripts.ProjPlayer import ProjPlayer
+from random import choice, randint
 import math
 
 
@@ -14,11 +15,12 @@ class Guns(pygame.sprite.Sprite):
           pygame.sprite.Sprite.__init__(self)
 
           self.sprite:dict[str, list] = {
-               "pistols": []
+               "pistols": [],
+               "shotguns": []
                
           }
           self.loadpistoll()
-
+          self.loadshotguns()
 
           # rect
           self.img = self.sprite["pistols"][0]
@@ -80,13 +82,7 @@ class Guns(pygame.sprite.Sprite):
                
                if P.countdown <= 0:
                     if P.ammor[P.guntype][P.gunid] > 0:
-                         # Calcula a distância entre o jogador e o cursor
-                         if self.gox == -1:
-                              pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox)
-                         elif self.gox == 1:
-                              pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox)
-
-                         ProjPGroup.add(pjp)
+                         self.fire()
 
 
 
@@ -96,31 +92,142 @@ class Guns(pygame.sprite.Sprite):
           spr = pygame.image.load("sprites/guns/revolvers.png")
           for i in range(2):
                image = spr.subsurface((12*i, 12), (12, 11))
-               image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
+               image = pygame.transform.scale(image, (12*REDOBJ/2, 11*REDOBJ/2))
                self.sprite["pistols"].append(image)
 
           for i in range(2):
                image = spr.subsurface((13*i, 0), (12, 11))
-               image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
+               image = pygame.transform.scale(image, (12*REDOBJ/2, 11*REDOBJ/2))
                self.sprite["pistols"].append(image)
           
           image = spr.subsurface((26, 0), (15, 11))
-          image = pygame.transform.scale(image, (15*REDOBJ, 11*REDOBJ))
+          image = pygame.transform.scale(image, (15*REDOBJ/2, 11*REDOBJ/2))
           self.sprite["pistols"].append(image)
 
           image = spr.subsurface((42, 0), (11, 11))
-          image = pygame.transform.scale(image, (11*REDOBJ, 11*REDOBJ))
+          image = pygame.transform.scale(image, (11*REDOBJ/2, 11*REDOBJ/2))
           self.sprite["pistols"].append(image)
 
           image = spr.subsurface((54, 0), (14, 11))
-          image = pygame.transform.scale(image, (14*REDOBJ, 11*REDOBJ))
+          image = pygame.transform.scale(image, (14*REDOBJ/2, 11*REDOBJ/2))
           self.sprite["pistols"].append(image)
 
 
           image = spr.subsurface((24, 11), (12, 11))
-          image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
+          image = pygame.transform.scale(image, (12*REDOBJ/2, 11*REDOBJ/2))
           self.sprite["pistols"].append(image)
      
+     def loadshotguns(self) -> None:
+          '''load sprite
+          :return None'''
+          spr = pygame.image.load("sprites/guns/shotguns.png")
+          for i in range(5):
+               image = spr.subsurface((40*i, 0), (39, 12))
+               image = pygame.transform.scale(image, (39*REDOBJ/2, 12*REDOBJ/2))
+               self.sprite["shotguns"].append(image)
+
+          image = spr.subsurface((0, 13), (39, 12))
+          image = pygame.transform.scale(image, (39*REDOBJ/2, 12*REDOBJ/2))
+          self.sprite["shotguns"].append(image)
+
+          for i in range(4):
+               x = 34 * i
+               image = spr.subsurface((x+40, 13), (33, 12))
+               image = pygame.transform.scale(image, (33*REDOBJ/2, 12*REDOBJ/2))
+               self.sprite["shotguns"].append(image)
+
+     def fire(self) -> None:
+          tipo = "normal"
+          match P.guntype:
+               case "pistols":
+                    match P.gunid:
+                         case 0:
+                              lifetime = 25
+                              dmg = 1
+                         case 1:
+                              lifetime = randint(40,90)
+                              dmg = 0
+                              tipo = choice(["normal", "explosivo", "venenoso", "multi"])
+                         case 2:
+                              lifetime = 40
+                              dmg = 1
+                         case 3:
+                              lifetime = 40
+                              dmg = 3
+                              tipo = "explosivo"
+                         case 4:
+                              lifetime = 50
+                              dmg = 1
+                         case 5:
+                              lifetime = randint(40,50)
+                              dmg = 1
+                         case 6:
+                              lifetime = randint(30,40)
+                              dmg = 2
+                         case 7:
+                              lifetime = 40
+                              dmg = 1
+                              tipo = "venenoso"
+               case "shotguns":
+                    match P.gunid:
+                         case 0:
+                              lifetime = 20
+                              dmg = 1
+                         case 1:
+                              lifetime = 30
+                              dmg = 1
+                              tipo = "multi"
+                         case 2:
+                              lifetime = 25
+                              dmg = 2
+                              tipo = "multi"
+                         case 3:
+                              lifetime = 40
+                              dmg = 3
+                              tipo = choice(["explosivo", "multi"])
+                         case 4:
+                              lifetime = 35
+                              dmg = 3
+                              tipo =  "explosivo"
+                         case 5:
+                              lifetime = 35
+                              dmg = 2
+                              tipo = "venenoso"
+                         case 6:
+                              lifetime = 20
+                              dmg = 1
+                         case 7:
+                              lifetime = 30
+                              dmg = 1
+                         case 8:
+                              lifetime = 25
+                              dmg = 2
+                         case 9:
+                              lifetime = 40
+                              dmg = 2
+                              tipo = choice(["explosivo", "multi"])
+
+
+
+
+
+               case "shotguns":
+                    lifetime = 60
+                    dmg = 1
+
+          if self.gox == -1:
+               pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+          elif self.gox == 1:
+               pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo)
+
+          ProjPGroup.add(pjp)
+
+
+
+
+
+
+
 
 
 Gun:Guns = Guns()

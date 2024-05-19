@@ -31,13 +31,15 @@ class Player(pygame.sprite.Sprite):
           self.guntype:str = "pistols"
           self.countdown:int = 0
           self.ammor:dict[str,int] = {
-               "pistols": [8, 6, 12, 5, 10, 6, 10, 10]
+               "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
                }
           self.maxammor:dict[str,int] = {
-               "pistols": [8, 6, 12, 5, 10, 6, 10, 10]
+               "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
                }
           
-          self.Hp:int = 20
+          self.Hp:int = 10
 
 
 
@@ -59,6 +61,9 @@ class Player(pygame.sprite.Sprite):
 
           # Move o jogador para as novas coordenadas
           self.move()
+
+          if pygame.sprite.spritecollide(self, EnemysGroup, True):
+               self.Hp -= 1
 
      def draw(self, surface: screen) -> None:
           '''draw player
@@ -106,11 +111,12 @@ class Player(pygame.sprite.Sprite):
                          self.gunid:int = 0
                     else:
                          self.gunid += 1
-               elif events.key == K_PLUS:
-                    if self.gunid == 0:
-                         len(self.ammor[self.guntype]) -1
-                    else:
-                         self.gunid -= 1
+               elif events.key == K_n:
+                    match self.guntype:
+                         case "shotguns":
+                              self.guntype = "pistols"
+                         case "pistols":
+                              self.guntype = "shotguns"
 
      def setspeed(self) -> None:
           '''set player's speed
@@ -137,7 +143,30 @@ class Player(pygame.sprite.Sprite):
                     case _:
                          raise NotImplementedError(IndexError)
 
-
+          elif self.guntype == "shotguns":
+               match self.gunid:
+                    case 0: #toy
+                         spd:int = REDOBJ * 2
+                    case 1: #cano duplo
+                         spd:int = REDOBJ * 4
+                    case 2: #cano duplo serrado
+                         spd:int = REDOBJ * 4.5
+                    case 3:  #cano duplo dourado
+                         spd:int = REDOBJ * 6
+                    case 4: #cano duplo de aço
+                         spd:int = REDOBJ * 6.5
+                    case 5: #cano duplo veneno
+                         spd:int = REDOBJ * 3.5
+                    case 6: #cano único brinquedo
+                         spd:int = REDOBJ *1.2
+                    case 7: #cano único 
+                         spd:int = REDOBJ * 3
+                    case 8: #cano único serrado
+                         spd:int = REDOBJ * 3.5
+                    case 9: #cano único dourado 
+                         spd:int = REDOBJ * 5
+                    case _:
+                         raise NotImplementedError(IndexError)
 
 
 
@@ -156,27 +185,67 @@ class Player(pygame.sprite.Sprite):
           :return None'''
           if self.guntype == "pistols":
                match self.gunid:
-                    case 0:
+                    case 0: #toygun
                          ctd:int = 50
-                    case 1:
+                    case 1: #goldgun
                          ctd:int = 70
-                    case 2:
+                    case 2: #pistol
                          ctd:int = 40
-                    case 3:
+                    case 3: #sinalizator
                          ctd:int = 45
-                    case 4:
+                    case 4: #silenciador
                          ctd:int = 40
-                    case 5:
+                    case 5: #revolver
                          ctd:int = 50
-                    case 6:
+                    case 6: #gun
                          ctd:int = 45
-                    case 7:
+                    case 7: #poisongun
                          ctd:int = 35
                     case _:
                          raise NotImplementedError(IndexError)
-                    
+          elif self.guntype == "shotguns":
+               match self.gunid:
+                    case 0: #toy
+                         ctd:int = 40
+                    case 1: #cano duplo
+                         ctd:int = 50
+                    case 2: #cano duplo serrado
+                         ctd:int = 40
+                    case 3:  #cano duplo dourado
+                         ctd:int = 45
+                    case 4: #cano duplo de aço
+                         ctd:int = 40
+                    case 5: #cano duplo veneno
+                         ctd:int = 40
+                    case 6: #cano único brinquedo
+                         ctd:int = 35
+                    case 7: #cano único 
+                         ctd:int = 45
+                    case 8: #cano único dourado 
+                         ctd:int = 45
+                    case _:
+                         raise NotImplementedError(IndexError)
+
+
           self.countdown:int = ctd
 
+     def restart(self) -> None:
+          # var
+          self.new_x, self.new_y = self.rect.center
+          self.speedx, self.speedy = REDOBJ, REDOBJ
+          self.gunid:int = 0
+          self.guntype:str = "pistols"
+          self.countdown:int = 0
+          self.ammor:dict[str,int] = {
+               "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               }
+          self.maxammor:dict[str,int] = {
+               "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 3, 5]
+               }
+          
+          self.Hp:int = 20
 
 
 

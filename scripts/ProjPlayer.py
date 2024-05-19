@@ -7,7 +7,7 @@ import math
 pygame.init()
 
 class ProjPlayer(pygame.sprite.Sprite):
-    def __init__(self, x:float, y:float, angle:float, gox: int, lifetime:int = 30) -> None:
+    def __init__(self, x:float, y:float, angle:float, gox:int, dmg:int, lifetime:int = 30, tipo:int = "normal") -> None:
         pygame.sprite.Sprite.__init__(self)
 
         # Carregando sprite
@@ -19,6 +19,7 @@ class ProjPlayer(pygame.sprite.Sprite):
         self.rect.center = x, y
 
         self.gox = gox
+        self.dmg = dmg
         
         self.speed:float = REDOBJ * 5 * self.gox
         self.angle:float = angle
