@@ -64,5 +64,6 @@ DARKBLUE:color = (10, 10, 120)
 
 #grupo de sprites
 ProjPGroup:group = pygame.sprite.Group()
-
+ParticlesGroup:group = pygame.sprite.Group()
+UiGroup:group = pygame.sprite.Group()
 

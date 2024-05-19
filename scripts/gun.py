@@ -95,30 +95,30 @@ class Guns(pygame.sprite.Sprite):
           :return None'''
           spr = pygame.image.load("sprites/guns/revolvers.png")
           for i in range(2):
-               image = spr.subsurface((12*i, 12), (12, 10))
-               image = pygame.transform.scale(image, (12*REDOBJ, 10*REDOBJ))
+               image = spr.subsurface((12*i, 12), (12, 11))
+               image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
                self.sprite["pistols"].append(image)
 
           for i in range(2):
-               image = spr.subsurface((13*i, 0), (12, 10))
-               image = pygame.transform.scale(image, (12*REDOBJ, 10*REDOBJ))
+               image = spr.subsurface((13*i, 0), (12, 11))
+               image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
                self.sprite["pistols"].append(image)
           
-          image = spr.subsurface((26, 0), (15, 10))
-          image = pygame.transform.scale(image, (15*REDOBJ, 10*REDOBJ))
+          image = spr.subsurface((26, 0), (15, 11))
+          image = pygame.transform.scale(image, (15*REDOBJ, 11*REDOBJ))
           self.sprite["pistols"].append(image)
 
-          image = spr.subsurface((42, 0), (11, 10))
-          image = pygame.transform.scale(image, (11*REDOBJ, 10*REDOBJ))
+          image = spr.subsurface((42, 0), (11, 11))
+          image = pygame.transform.scale(image, (11*REDOBJ, 11*REDOBJ))
           self.sprite["pistols"].append(image)
 
-          image = spr.subsurface((54, 0), (14, 10))
-          image = pygame.transform.scale(image, (14*REDOBJ, 10*REDOBJ))
+          image = spr.subsurface((54, 0), (14, 11))
+          image = pygame.transform.scale(image, (14*REDOBJ, 11*REDOBJ))
           self.sprite["pistols"].append(image)
 
 
-          image = spr.subsurface((24, 11), (12, 10))
-          image = pygame.transform.scale(image, (12*REDOBJ, 10*REDOBJ))
+          image = spr.subsurface((24, 11), (12, 11))
+          image = pygame.transform.scale(image, (12*REDOBJ, 11*REDOBJ))
           self.sprite["pistols"].append(image)
      
 

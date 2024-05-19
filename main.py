@@ -2,9 +2,14 @@ import pygame
 from scripts.consts import *
 from scripts.player import P
 from scripts.mira import mira, M
+from scripts.ui.life import HpBar
+from scripts.ui.ammor import ammorBar 
 from scripts.gun import Gun
 
 pygame.init()
+
+UiGroup.add(HpBar, ammorBar)
+
 
 class Game():
      def __init__(self) -> None:
@@ -63,6 +68,11 @@ class Game():
           ProjPGroup.draw(self.screen)
           ProjPGroup.update()
 
+          UiGroup.draw(self.screen)
+          UiGroup.update(self.screen)
+
+          ParticlesGroup.draw(self.screen)
+          ParticlesGroup.update()
 
 G:Game = Game()
 
