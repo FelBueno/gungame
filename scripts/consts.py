@@ -30,7 +30,7 @@ def scalecordY(y:float) -> int:
     :param: y: value to scale'''
     return int(y * H_RATIO)
 
-REDOBJ: float = scale(8)
+REDOBJ: float = scale(5)
 
 
 #tipos
@@ -63,6 +63,6 @@ CYAN:color = (0,255,255)
 DARKBLUE:color = (10, 10, 120)
 
 #grupo de sprites
-
+ProjPGroup:group = pygame.sprite.Group()
 
 

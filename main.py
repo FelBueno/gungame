@@ -2,6 +2,7 @@ import pygame
 from scripts.consts import *
 from scripts.player import P
 from scripts.mira import mira, M
+from scripts.gun import Gun
 
 pygame.init()
 
@@ -41,6 +42,7 @@ class Game():
                               #pausa o jogo
                               self.pause:bool = not self.pause
 
+                    Gun.get_event(event)
                     P.get_event(event, M)
 
                #game code
@@ -54,7 +56,13 @@ class Game():
      def ingame(self) -> None:
 
           P.draw(self.screen)
-          P.update(self, mira)
+          P.update()
+
+          Gun.update(self.screen)
+
+          ProjPGroup.draw(self.screen)
+          ProjPGroup.update()
+
 
 G:Game = Game()
 
