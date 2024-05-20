@@ -16,11 +16,15 @@ class Guns(pygame.sprite.Sprite):
 
           self.sprite:dict[str, list] = {
                "pistols": [],
-               "shotguns": []
+               "shotguns": [],
+               "ak-47": [],
+               "rifle": []
                
           }
           self.loadpistoll()
           self.loadshotguns()
+          self.loadak47()
+          self.loadrifle()
 
           # rect
           self.img = self.sprite["pistols"][0]
@@ -138,6 +142,35 @@ class Guns(pygame.sprite.Sprite):
                image = pygame.transform.scale(image, (33*REDOBJ/2, 12*REDOBJ/2))
                self.sprite["shotguns"].append(image)
 
+     def loadak47(self) -> None:
+          '''load sprite
+          :return None'''
+          spr = pygame.image.load("sprites/guns/ak-47.png")
+          for i in range(3):
+               image = spr.subsurface((31*i, 0), (30, 10))
+               image = pygame.transform.scale(image, (30*REDOBJ/2, 10*REDOBJ/2))
+               self.sprite["ak-47"].append(image)
+          for i in range(3):
+               image = spr.subsurface((31*i, 11), (30, 10))
+               image = pygame.transform.scale(image, (30*REDOBJ/2, 10*REDOBJ/2))
+               self.sprite["ak-47"].append(image)
+
+          image = spr.subsurface((0, 22), (30, 10))
+          image = pygame.transform.scale(image, (30*REDOBJ/2, 10*REDOBJ/2))
+          self.sprite["ak-47"].append(image)
+
+     def loadrifle(self) -> None:
+          spr = pygame.image.load("sprites/guns/rifle.png")
+          for i in range(3):
+               image = spr.subsurface((32*i, 0), (31, 14))
+               image = pygame.transform.scale(image, (30*REDOBJ/2, 14*REDOBJ/2))
+               self.sprite["rifle"].append(image)     
+          for i in range(3):
+               image = spr.subsurface((32*i, 15), (31, 14))
+               image = pygame.transform.scale(image, (30*REDOBJ/2, 14*REDOBJ/2))
+               self.sprite["rifle"].append(image)     
+          
+
      def fire(self) -> None:
           tipo = "normal"
           match P.guntype:
@@ -206,6 +239,58 @@ class Guns(pygame.sprite.Sprite):
                               lifetime = 40
                               dmg = 2
                               tipo = choice(["explosivo", "multi"])
+               case "ak-47":
+                    match P.gunid:
+                         case 0:
+                              lifetime = 40
+                              dmg = 1
+                         case 1:
+                              lifetime = 60
+                              dmg = 2
+                              tipo = choice(["explosivo", "multi"])
+                         case 2:
+                              lifetime = 40
+                              dmg = 1
+                              tipo = "venenoso"
+                         case 3:
+                              lifetime = 50
+                              dmg = 1
+                              tipo = "multi"
+                         case 4:
+                              lifetime = 50
+                              dmg = 1
+                         case 5:
+                              lifetime = 50
+                              dmg = 2
+                              tipo = "explosivo"
+                         case 6:
+                              lifetime = 20
+                              dmg = 1
+               case "rifle":
+                    match P.gunid:
+                         case 0:
+                              lifetime = 20
+                              dmg = 1
+                         case 1:
+                              lifetime = 40
+                              dmg = 1
+                         case 2:
+                              lifetime = 40
+                              dmg = 1
+                              tipo = choice(["explosivo", "multi"])
+                         case 3:
+                              lifetime = 50
+                              dmg = 1
+                              tipo = "multi"
+                         case 4:
+                              lifetime = 50
+                              dmg = 1
+                              tipo = "explosivo"
+                         case 5:
+                              lifetime = 50
+                              dmg = 2
+                              tipo = "venenoso"
+      
 
 
           match P.guntype:
@@ -306,9 +391,20 @@ class Guns(pygame.sprite.Sprite):
                               ProjPGroup.add(pjp)
                               pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle + 15, self.gox, dmg, lifetime, tipo, P=P)
                               ProjPGroup.add(pjp)
+               case "ak-47":
+                    if self.gox == -1:
+                         pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
+                    elif self.gox == 1:
+                         pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
 
+                    ProjPGroup.add(pjp)
+               case "rifle":
+                    if self.gox == -1:
+                         pjp = ProjPlayer(self.rect.left, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
+                    elif self.gox == 1:
+                         pjp = ProjPlayer(self.rect.right, self.rect.top, self.angle, self.gox, dmg, lifetime, tipo, P=P)
 
-
+                    ProjPGroup.add(pjp)
 
 
 

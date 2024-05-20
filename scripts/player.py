@@ -34,15 +34,21 @@ class Player(pygame.sprite.Sprite):
 
           self.ammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5],
+               "ak-47": [15, 20, 12, 12, 17, 20, 10],
+               "rifle": [10, 20, 25, 15, 17, 17]
                }
           self.canload:dict = {
                "pistols": [2 for i in range(len(self.ammor["pistols"]))],
-               "shotguns": [2 for i in range(len(self.ammor["shotguns"]))]
+               "shotguns": [2 for i in range(len(self.ammor["shotguns"]))],
+               "ak-47": [2 for i in range(len(self.ammor["ak-47"]))],
+               "rifle": [2 for i in range(len(self.ammor["rifle"]))]
                }
           self.maxammor:dict[str,int] = {
                "pistols": [8, 6, 12, 5, 10, 6, 10, 10],
-               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5]
+               "shotguns": [6, 3, 4, 5, 4, 4, 3, 6, 3, 5],
+               "ak-47": [15, 20, 12, 12, 17, 20, 10],
+               "rifle": [10, 20, 25, 15, 17, 17]
                }
           
           self.Hp:int = 20
@@ -169,9 +175,13 @@ class Player(pygame.sprite.Sprite):
                elif events.key == K_n:
                     match self.guntype:
                          case "shotguns":
-                              self.guntype = "pistols"
+                              self.guntype = "ak-47"
                          case "pistols":
                               self.guntype = "shotguns"
+                         case "ak-47":
+                              self.guntype = "rifle"
+                         case "rifle":
+                              self.guntype = "pistols"
 
      def setspeed(self) -> None:
           '''set player's speed
@@ -223,7 +233,41 @@ class Player(pygame.sprite.Sprite):
                     case _:
                          raise NotImplementedError(IndexError)
 
+          elif self.guntype == "ak-47":
+               match self.gunid:
+                    case 0: #toy
+                         spd:int = REDOBJ * 2
+                    case 1: #cano duplo
+                         spd:int = REDOBJ * 4
+                    case 2: #cano duplo serrado
+                         spd:int = REDOBJ * 2
+                    case 3:  #cano duplo dourado
+                         spd:int = REDOBJ * 3
+                    case 4: #cano duplo de aço
+                         spd:int = REDOBJ * 2.5
+                    case 5: #cano duplo veneno
+                         spd:int = REDOBJ * 2
+                    case 6: #cano único brinquedo
+                         spd:int = REDOBJ * 1.2
+                    case _:
+                         raise NotImplementedError(IndexError)
 
+          elif self.guntype == "rifle":
+               match self.gunid:
+                    case 0: #toy
+                         spd:int = REDOBJ
+                    case 1: #cano duplo
+                         spd:int = REDOBJ * 2
+                    case 2: #cano duplo serrado
+                         spd:int = REDOBJ * 4
+                    case 3:  #cano duplo dourado
+                         spd:int = REDOBJ * 2.5
+                    case 4: #cano duplo de aço
+                         spd:int = REDOBJ * 3.5
+                    case 5: #cano duplo veneno
+                         spd:int = REDOBJ * 2
+                    case _:
+                         raise NotImplementedError(IndexError)
 
           if self.new_x >= self.rect.centerx:
                self.speedx = spd
@@ -284,8 +328,43 @@ class Player(pygame.sprite.Sprite):
                          ctd:int = 40
                     case _:
                          raise NotImplementedError(IndexError)
-
-
+          elif self.guntype == "ak-47":
+               match self.gunid:
+                    case 0: #ak-47
+                         ctd:int = 30
+                    case 1: #ak-47
+                         ctd:int = 20
+                    case 2: #ak-47
+                         ctd:int = 20
+                    case 3: #ak-47
+                         ctd:int = 20
+                    case 4: #ak-47
+                         ctd:int = 20
+                    case 5: #ak-47
+                         ctd:int = 20
+                    case 6: #ak-47
+                         ctd:int = 20
+                    case _:
+                         raise NotImplementedError(IndexError)
+          elif self.guntype == "rifle":
+               match self.gunid:
+                    case 0: #toygun
+                         ctd:int = 30
+                    case 1: #goldgun
+                         ctd:int = 20
+                    case 2: #pistol
+                         ctd:int = 20
+                    case 3: #sinalizator
+                         ctd:int = 20
+                    case 4: #silenciador
+                         ctd:int = 20
+                    case 5: #revolver
+                         ctd:int = 20
+                    case 6: #gun
+                         ctd:int = 20
+                    case _:
+                         raise NotImplementedError(IndexError)
+                    
           self.countdown:int = ctd
 
      def restart(self) -> None:
